@@ -31,7 +31,7 @@ EXPOSE 20211
 
 #CMD ["lighttpd","-D","-f","/etc/lighttpd/lighttpd.conf"]
 
-ADD start.sh /
-RUN chmod +x /start.sh
+ADD start.sh /home/pi
+RUN chmod +x /home/pi/start.sh
 
-CMD ["/start.sh"]
+#CMD ["/home/pi/start.sh"]
