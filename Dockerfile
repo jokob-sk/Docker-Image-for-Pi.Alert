@@ -34,4 +34,4 @@ EXPOSE 20211
 ADD start.sh /home/pi
 RUN chmod +x /home/pi/start.sh
 
-#CMD ["/home/pi/start.sh"]
+CMD ["/home/pi/start.sh"]
