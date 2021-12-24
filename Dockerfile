@@ -29,4 +29,9 @@ RUN sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf
 
 EXPOSE 20211
 
-CMD ["lighttpd","-D","-f","/etc/lighttpd/lighttpd.conf"]
+#CMD ["lighttpd","-D","-f","/etc/lighttpd/lighttpd.conf"]
+
+ADD start.sh /
+RUN chmod +x /start.sh
+
+CMD ["/start.sh"]
