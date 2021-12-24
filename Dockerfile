@@ -24,6 +24,7 @@ RUN  sed -ie 's/~/\/home\/pi/g' /home/pi/pialert/install/pialert.cron
 RUN (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - 
 #USER root 
 RUN chgrp -R www-data /home/pi/pialert/db &&  chmod -R 770 /home/pi/pialert/db
+RUN sudo service cron start
 RUN sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf
 
 EXPOSE 20211
