@@ -19,10 +19,10 @@ RUN apt install curl -y && curl -LO https://github.com/pucherot/Pi.Alert/raw/mai
 RUN ln -s /home/pi/pialert/front /var/www/html/pialert  
 RUN  python /home/pi/pialert/back/pialert.py update_vendors 
 
-USER pi
+#USER pi
 RUN  sed -ie 's/~/\/home\/pi/g' /home/pi/pialert/install/pialert.cron
 RUN (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - 
-USER root 
+#USER root 
 RUN chgrp -R www-data /home/pi/pialert/db &&  chmod -R 770 /home/pi/pialert/db
 RUN sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf
 
