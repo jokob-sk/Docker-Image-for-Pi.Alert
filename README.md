@@ -5,6 +5,8 @@ All credit for Pi.Alert goes to:
 The Docker image is available at [jokobsk/Pi.Alert - Docker
 Hub](https://hub.docker.com/repository/docker/jokobsk/pi.alert).
 
+The source Docker file is available [here on GitHub](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert).
+
 ## Changing configuration
 Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. I'd start by copying the default files from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
 
