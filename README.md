@@ -11,13 +11,20 @@ The source Docker file is available [here on GitHub](https://github.com/jokob-sk
 Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. I'd start by copying the default files from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
 
 
-## Port mapping
+In `pialert.config` specify your network adapter (will probably be eth0 or eth1) and the network filter, e.g. if your DHCP server assigns IPs in the 192.168.1.0 to 192.168.1.255 range specify it the following way: 
 
-Map port `:20211` on the container to your local port.
+`SCAN_SUBNETS    = '192.168.1.0/24 --interface=eth0'`
+
+## Running the container
+You will have to probably run the container on the host network, e.g: `sudo docker run --rm --net=host jokobsk/pi.alert`
+
+## Port 
+
+The container runs on the port `:20211`.
 
 ## UI URL
 
-The UI is located on `<host IP>:<local port>/pialert/`
+The UI is located on `<host IP>:20211/pialert/`
 
 # Disclaimer
 This is my second container and I might have used unconventional hacks so if anyone is more experienced, feel free to fork/create pull requests.
