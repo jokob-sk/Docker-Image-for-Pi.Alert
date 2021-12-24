@@ -12,7 +12,8 @@ WORKDIR /home/pi
 RUN apt install curl -y && curl -LO https://github.com/pucherot/Pi.Alert/raw/main/tar/pialert_latest.tar && tar xvf pialert_latest.tar && rm pialert_latest.tar 
 RUN ln -s /home/pi/pialert/front /var/www/html/pialert  
 RUN sudo python /home/pi/pialert/back/pialert.py update_vendors && (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - && chgrp -R www-data /home/pi/pialert/db && chmod -R 770 /home/pi/pialert/db
+RUN sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf
 
-EXPOSE 80
+EXPOSE 20211
 
 CMD ["lighttpd","-D","-f","/etc/lighttpd/lighttpd.conf"]
