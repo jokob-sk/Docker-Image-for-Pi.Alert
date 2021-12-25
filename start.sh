@@ -1,4 +1,4 @@
 #!/bin/sh
 
-sudo /etc/init.d/lighttpd start
-sudo service cron start
+/etc/init.d/lighttpd start
+service cron start && tail -f /dev/null
