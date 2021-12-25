@@ -16,12 +16,10 @@ RUN apt-get install lighttpd -y \
     && ln -s ~/pialert/install/index.html /var/www/html/index.html \
     && apt-get install php php-cgi php-fpm php-sqlite3 -y \
     && lighttpd-enable-mod fastcgi-php \
-    && service lighttpd restart \
     && apt-get install sqlite3 -y
 
 # arp-scan & Python
 RUN apt-get install arp-scan -y \
-    && arp-scan -l \
     && apt-get install dnsutils net-tools -y \
     && apt-get install python -y
 
@@ -38,7 +36,8 @@ RUN apt install curl -y \
     && chgrp -R www-data /home/pi/pialert/db \
     &&  chmod -R 770 /home/pi/pialert/db \
     # changing he default port number 80 to something random, here 20211
-    && sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf
+    && sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf \
+    && service lighttpd restart 
 
 # Expose the below port
 EXPOSE 20211
