@@ -25,17 +25,20 @@ RUN apt-get install arp-scan -y \
 
 # Pi.Alert
 RUN apt install curl -y \
-    && curl -LO https://github.com/pucherot/Pi.Alert/raw/main/tar/pialert_latest.tar \
+    && sudo wget -O cacert.crt https://curl.haxx.se/ca/cacert.pem -P /usr/local/share/ca-certificates/ \
+    && sudo update-ca-certificates && \
+    apt-get clean \
+    && wget https://github.com/pucherot/Pi.Alert/raw/main/tar/pialert_latest.tar \
     && tar xvf pialert_latest.tar \
     && rm pialert_latest.tar \
     && ln -s /home/pi/pialert/front /var/www/html/pialert  \
     && python /home/pi/pialert/back/pialert.py update_vendors \
     # Replace the ~ character with the installation location
-    &&  sed -ie 's/~/\/home\/pi/g' /home/pi/pialert/install/pialert.cron \
+    && sed -ie 's/~/\/home\/pi/g' /home/pi/pialert/install/pialert.cron \
     && (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - \
     && chgrp -R www-data /home/pi/pialert/db \
-    &&  chmod -R 770 /home/pi/pialert/db \
-    # changing he default port number 80 to something random, here 20211
+    && chmod -R 770 /home/pi/pialert/db \
+    # changing the default port number 80 to something random, here 20211
     && sed -ie 's/= 80/= 20211/g' /etc/lighttpd/lighttpd.conf \
     && service lighttpd restart 
 
