@@ -34,7 +34,7 @@ The container runs on the port `:20211`.
 
 The UI is located on `<host IP>:20211/pialert/`
 
-Please note - the cronjob is executed every 5 and 15 minutes so wait that long for the devices to update.
+Please note - the cronjob is executed every 1, 5 and 15 minutes so wait that long for all of the scans to run.
 
 # Disclaimer
 This is my second container and I might have used unconventional hacks so if anyone is more experienced, feel free to fork/create pull requests.
