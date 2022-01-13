@@ -8,12 +8,20 @@ Hub](https://registry.hub.docker.com/r/jokobsk/pi.alert).
 The source Docker file is available [here on GitHub](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert).
 
 ## Changing the configuration
-Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. I'd start by copying the default files from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
 
+- Download `pialert.conf` and `version.conf` from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
+- Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. 
+- In `pialert.config` specify your network adapter (will probably be eth0 or eth1) and the network filter, e.g. if your DHCP server assigns IPs in the 192.168.1.0 to 192.168.1.255 range specify it the following way: `SCAN_SUBNETS    = '192.168.1.0/24 --interface=eth0'`
 
-In `pialert.config` specify your network adapter (will probably be eth0 or eth1) and the network filter, e.g. if your DHCP server assigns IPs in the 192.168.1.0 to 192.168.1.255 range specify it the following way: 
+### Database backup and restore
 
-`SCAN_SUBNETS    = '192.168.1.0/24 --interface=eth0'`
+You can backup the DB by running the follow command in the container:
+
+`cp /home/pi/pialert/db/pialert.db /home/pi/pialert/config/pialert.db_bak`
+
+Restoring the DB:
+
+`cp /home/pi/pialert/config/pialert.db_bak /home/pi/pialert/db/pialert.db`
 
 ## Running the container
 You will have to probably run the container on the host network, e.g: `sudo docker run --rm --net=host jokobsk/pi.alert`
