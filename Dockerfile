@@ -21,7 +21,7 @@ RUN apt-get install lighttpd -y \
 # arp-scan, Python, ip tools
 RUN apt-get install arp-scan -y \
     && apt-get install dnsutils net-tools -y \
-    && apt-get install python -y
+    && apt-get install python -y \
     && apt-get install iproute2 -y
 
 # Pi.Alert
