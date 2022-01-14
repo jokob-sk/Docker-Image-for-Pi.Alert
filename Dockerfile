@@ -5,6 +5,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     && apt-get install apt-utils -y \
     && apt-get install cron -y \
+    && apt-get install git -y \
     && apt install sudo -y
 
 #add the pi user
@@ -25,17 +26,10 @@ RUN apt-get install arp-scan -y \
     && apt-get install iproute2 -y
 
 # Pi.Alert
-RUN apt install curl -y \
-    && sudo wget -O cacert.crt https://curl.haxx.se/ca/cacert.pem -P /usr/local/share/ca-certificates/ \
-    && sudo update-ca-certificates && \
-    apt-get clean \
-    && wget https://github.com/pucherot/Pi.Alert/raw/main/tar/pialert_latest.tar \
-    && tar xvf pialert_latest.tar \
-    && rm pialert_latest.tar \
+RUN apt-get clean \
+    && git clone https://github.com/jokob-sk/Pi.Alert.git pialert \ 
     && ln -s /home/pi/pialert/front /var/www/html/pialert  \
-    && python /home/pi/pialert/back/pialert.py update_vendors \
-    # Replace the ~ character with the installation location
-    && sed -ie 's/~/\/home\/pi/g' /home/pi/pialert/install/pialert.cron \
+    && python /home/pi/pialert/back/pialert.py update_vendors \    
     && (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - \
     && chgrp -R www-data /home/pi/pialert/db \
     && chmod -R 770 /home/pi/pialert/db \
