@@ -1,4 +1,4 @@
-# A docker image for Pi.Alert
+# A docker image for Pi.Alert :whale:
 All credit for Pi.Alert goes to:
 [pucherot/Pi.Alert](https://github.com/pucherot/Pi.Alert).
 
@@ -7,7 +7,7 @@ Hub](https://registry.hub.docker.com/r/jokobsk/pi.alert).
 
 The source Docker file is available [here on GitHub](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert).
 
-## Changing the configuration
+## Changing the configuration :wrench:
 
 - Download `pialert.conf` and `version.conf` from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
 - Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. 
