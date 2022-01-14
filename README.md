@@ -15,7 +15,9 @@ The source Docker file is available [here on GitHub](https://github.com/jokob-sk
 
 ### Database backup and restore
 
-You can backup the DB by running the follow command in the container:
+The docker image creates a DB copy once an hour copying the DB to `/home/pi/pialert/config/pialert.db_bak`
+
+You can backup the DB by also ad-hoc by running the follow command in the container:
 
 `cp /home/pi/pialert/db/pialert.db /home/pi/pialert/config/pialert.db_bak`
 
