@@ -1,33 +1,37 @@
 FROM debian:buster-slim
 
+ARG myinstall="install --no-install-recommends"
+
 #Update and reduce image size
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-    && apt-get install apt-utils -y \
-    && apt-get install cron -y \
-    && apt-get install git -y \
-    && apt install sudo -y
+RUN apt update \
+    && apt $myinstall -y \
+    && apt $myinstall apt-utils -y \
+    && apt $myinstall cron -y \
+    && apt install git -y \
+    && apt $myinstall sudo -y
 
 #add the pi user
 RUN useradd -ms /bin/bash pi 
 WORKDIR /home/pi
 # Lighttpd & PHP
-RUN apt-get install lighttpd -y \
+RUN apt $myinstall lighttpd -y \
     && mv /var/www/html/index.lighttpd.html /var/www/html/index.lighttpd.html.old \
     && ln -s ~/pialert/install/index.html /var/www/html/index.html \
-    && apt-get install php php-cgi php-fpm php-sqlite3 -y \
+    && apt $myinstall php php-cgi php-fpm php-sqlite3 -y \
     && lighttpd-enable-mod fastcgi-php \
-    && apt-get install sqlite3 -y
+    && apt $myinstall sqlite3 -y
 
 # arp-scan, Python, ip tools
-RUN apt-get install arp-scan -y \
-    && apt-get install dnsutils net-tools -y \
-    && apt-get install python -y \
-    && apt-get install iproute2 -y
+RUN apt install arp-scan -y \
+    && apt $myinstall dnsutils net-tools -y \
+    && apt $myinstall python -y \
+    && apt $myinstall iproute2 -y
 
 # Pi.Alert
-RUN apt-get clean \
+RUN apt clean \
     && git clone https://github.com/jokob-sk/Pi.Alert.git pialert \ 
+    # delete .git specific files to make the image smaller
+    && rm -r /home/pi/pialert/.git \
     && ln -s /home/pi/pialert/front /var/www/html/pialert  \
     && python /home/pi/pialert/back/pialert.py update_vendors \    
     && (crontab -l 2>/dev/null; cat /home/pi/pialert/install/pialert.cron) | crontab - \
