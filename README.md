@@ -12,6 +12,7 @@ The source Docker file is available [here on GitHub](https://github.com/jokob-sk
 - Download `pialert.conf` and `version.conf` from [here](https://github.com/pucherot/Pi.Alert/tree/main/config).
 - Map the container folder `/home/pi/pialert/config` to your own folder containing `pialert.conf` and `version.conf`. 
 - In `pialert.config` specify your network adapter (will probably be eth0 or eth1) and the network filter, e.g. if your DHCP server assigns IPs in the 192.168.1.0 to 192.168.1.255 range specify it the following way: `SCAN_SUBNETS    = '192.168.1.0/24 --interface=eth0'`
+- Set the `TZ` environment variable to your current time zone (e.g.`Europe/Paris`). Find your time zone [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 ### Database backup and restore
 
