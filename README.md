@@ -1,3 +1,5 @@
+[![Docker](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert/actions/workflows/docker.yml/badge.svg)](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert/actions/workflows/docker.yml) [![Docker Image Size](https://img.shields.io/docker/image-size/jokobsk/pi.alert?logo=Docker)](https://hub.docker.com/r/jokobsk/pi.alert)
+
 # A docker image for Pi.Alert :whale:
 All credit for Pi.Alert goes to:
 [pucherot/Pi.Alert](https://github.com/pucherot/Pi.Alert).
