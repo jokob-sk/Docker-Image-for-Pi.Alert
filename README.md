@@ -42,7 +42,7 @@ Docker-Image-for-Pi.Alert](https://github.com/jokob-sk/Docker-Image-for-Pi.Alert
 
        - `cp /home/pi/pialert/config/pialert.db_bak /home/pi/pialert/db/pialert.db`
 
-   * Alternative approach: Storing the DB on your own backed-up location
+   * Alternative approach: Storing the DB on your own volume
 
        ```yaml
            volumes:
