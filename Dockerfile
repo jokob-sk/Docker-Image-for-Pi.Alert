@@ -8,6 +8,7 @@ RUN apt update \
     && apt $myinstall apt-utils -y \
     && apt $myinstall cron -y \
     && apt install git -y \
+    && apt install curl -y \
     && apt $myinstall sudo -y
 
 #add the pi user
