@@ -30,7 +30,7 @@ RUN apt install arp-scan -y \
 
 # Pi.Alert
 RUN apt clean \
-    && git clone https://github.com/iAmSaugata/Pi.Alert.git pialert     \ 
+    && git clone https://github.com/jokob-sk/Pi.Alert.git pialert     \ 
     # delete .git specific files to make the image smaller
     && rm -r /home/pi/pialert/.git \
     && ln -s /home/pi/pialert/front /var/www/html/pialert  \
