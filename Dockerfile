@@ -1,36 +1,25 @@
 FROM debian:buster-slim
 
-ARG myinstall="install --no-install-recommends"
-
 #Update and reduce image size
 RUN apt update \
-    && apt $myinstall -y \
-    && apt $myinstall apt-utils -y \
-    && apt $myinstall cron -y \
-    && apt install git -y \
-    && apt install curl -y \
-    && apt $myinstall sudo -y
+    && apt install --no-install-recommends apt-utils cron sudo lighttpd php php-cgi php-fpm php-sqlite3 sqlite3 dnsutils net-tools python iproute2 -y \
+    #Install without the --no-install-recommends flag
+    && apt install git curl arp-scan -y \
+    #clean-up
+    && apt clean autoclean \
+    && apt autoremove 
 
 #add the pi user
 RUN useradd -ms /bin/bash pi 
 WORKDIR /home/pi
-# Lighttpd & PHP
-RUN apt $myinstall lighttpd -y \
-    && mv /var/www/html/index.lighttpd.html /var/www/html/index.lighttpd.html.old \
-    && ln -s ~/pialert/install/index.html /var/www/html/index.html \
-    && apt $myinstall php php-cgi php-fpm php-sqlite3 -y \
-    && lighttpd-enable-mod fastcgi-php \
-    && apt $myinstall sqlite3 -y
 
-# arp-scan, Python, ip tools
-RUN apt install arp-scan -y \
-    && apt $myinstall dnsutils net-tools -y \
-    && apt $myinstall python -y \
-    && apt $myinstall iproute2 -y
+# Lighttpd & PHP
+RUN mv /var/www/html/index.lighttpd.html /var/www/html/index.lighttpd.html.old \
+    && ln -s ~/pialert/install/index.html /var/www/html/index.html \
+    && lighttpd-enable-mod fastcgi-php 
 
 # Pi.Alert
-RUN apt clean \
-    && git clone https://github.com/jokob-sk/Pi.Alert.git pialert     \ 
+RUN git clone https://github.com/jokob-sk/Pi.Alert.git pialert     \ 
     # delete .git specific files to make the image smaller
     && rm -r /home/pi/pialert/.git \
     && ln -s /home/pi/pialert/front /var/www/html/pialert  \
